@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        img { max-width: 80px; height: auto; }
+        .btn { padding: 5px 10px; text-decoration: none; color: white; border-radius: 4px; border: none; cursor: pointer;}
+        .btn-add { background-color: #28a745; }
+        .btn-edit { background-color: #007bff; }
+        .btn-delete { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h2>Danh sách sản phẩm</h2>
+    <a href="/add" class="btn btn-add"> + Thêm sản phẩm mới</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (products.length > 0) { %>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td>
+                            <% if(product.url_image) { %>
+                                <img src="<%= product.url_image %>" alt="sp">
+                            <% } else { %>
+                                No Image
+                            <% } %>
+                        </td>
+                        <td><%= product.name %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.quantity %></td>
+                        <td>
+                            <a href="/edit/<%= product.id %>" class="btn btn-edit">Sửa</a>
+                            
+                            <form action="/delete/<%= product.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                <button type="submit" class="btn btn-delete">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr><td colspan="5">Chưa có sản phẩm nào.</td></tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
