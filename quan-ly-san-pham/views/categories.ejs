@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Quản lý Danh mục</title></head>
+<body style="padding: 20px; font-family: sans-serif;">
+    <h2>Quản lý Danh mục</h2>
+    <a href="/categories/add">Thêm Danh mục mới</a> | <a href="/">Về trang chủ</a>
+    <hr>
+    <table border="1" width="100%" cellpadding="5">
+        <tr>
+            <th>Tên danh mục</th>
+            <th>Mô tả</th>
+            <th>Hành động</th>
+        </tr>
+        <% categories.forEach(cat => { %>
+            <tr>
+                <td><%= cat.name %></td>
+                <td><%= cat.description %></td>
+                <td>
+                    <a href="/categories/edit/<%= cat.categoryId %>">Sửa</a>
+                    <form action="/categories/delete/<%= cat.categoryId %>" method="POST" style="display:inline">
+                        <button onclick="return confirm('Xóa danh mục này?');">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>
